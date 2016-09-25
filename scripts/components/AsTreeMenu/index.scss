@@ -1,0 +1,72 @@
+$treeDefaultColor : #67b2dd;
+.content{
+  width:800px;
+  margin: 40px auto;
+}
+.tree{
+  position: relative;
+  padding-left: 20px;
+  &:before{
+    content:"";
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    border:  1px dotted $treeDefaultColor;
+    bottom: 12px;
+  }
+  .tree-folder{
+    position: relative;
+    &:before{
+      content:"";
+      position: absolute;
+      width: 20px;
+      left: -19px;
+      top: 14px;
+      border: 1px dotted $treeDefaultColor;
+    }
+      .tree-folder-header{
+        position: relative;
+        padding: 5px;
+        height: 20px;
+        line-height: 20px;
+
+        cursor: pointer;
+        .tree-folder-name{
+          display: inline-block;
+        }
+      }
+  }
+  .tree-folder-content{
+    position: relative;
+    padding: 5px;
+    margin-left: 28px;
+    display: none;
+    &:before{
+      content: "";
+      position:absolute;
+      left: -18px;
+      top: -9px;
+      bottom: 14px;
+      border: 1px dotted $treeDefaultColor;
+    }
+  }
+       .tree-item{
+      position: relative;
+      &:before{
+        content: "";
+        position: absolute;
+        width:18px;
+        border: 1px dotted $treeDefaultColor;
+        left: -20px;
+        top:  8px;// .tree-item line-height /2
+      }
+      a{
+        text-decoration:  none;
+        color: $treeDefaultColor;
+      }
+    }
+  .tree-loader{
+    margin-left: 28px;
+    display: none;
+  }
+}
