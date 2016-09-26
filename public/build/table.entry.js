@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(253);
+	module.exports = __webpack_require__(180);
 
 
 /***/ },
@@ -21758,8 +21758,165 @@
 
 /***/ },
 /* 179 */,
-/* 180 */,
-/* 181 */,
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _index = __webpack_require__(181);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _Column = __webpack_require__(245);
+
+	var _Column2 = _interopRequireDefault(_Column);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var data = [{ containerID: '01', type: '浓缩', progess: '30%' }, { containerID: '02', type: '浓缩', progess: '35%' }, { containerID: '03', type: '浓缩', progess: '40%' }, { containerID: '04', type: '浓缩', progess: '80%' }];
+	var keys = Object.keys(data[0]);
+	_reactDom2.default.render(_react2.default.createElement(
+	    _index2.default,
+	    { data: data },
+	    keys.map(function (entry) {
+	        return _react2.default.createElement(_Column2.default, { dataKey: entry, name: entry, key: 'col-' + entry });
+	    })
+	), document.getElementById('table'));
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRouter = __webpack_require__(182);
+
+	var _BaseComponent = __webpack_require__(174);
+
+	var _BaseComponent2 = _interopRequireDefault(_BaseComponent);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Column = __webpack_require__(245);
+
+	var _Column2 = _interopRequireDefault(_Column);
+
+	__webpack_require__(246);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getStyle = function getStyle(_ref) {
+	  var width = _ref.width;
+	  var align = _ref.align;
+
+	  var style = {};
+
+	  if (width) {
+	    style.width = width;
+	  }
+	  if (align) {
+	    style.textAlign = align;
+	  }
+
+	  return style;
+	};
+
+	var renderTds = function renderTds(data, entry, columns, rowIndex) {
+	  return columns.map(function (col, index) {
+	    var _col$props = col.props;
+	    var dataKey = _col$props.dataKey;
+	    var className = _col$props.className;
+
+	    var value = entry[dataKey];
+	    return _react2.default.createElement(
+	      'td',
+	      {
+	        key: 'td-' + index,
+	        style: getStyle(col.props),
+	        className: 'react-smart-table-td col-' + index + ' col-' + dataKey + ' ' + (className || '')
+	      },
+	      value
+	    );
+	  });
+	};
+
+	var renderRows = function renderRows(data, columns) {
+	  if (!data || !data.length) {
+	    return null;
+	  }
+
+	  return data.map(function (entry, index) {
+	    return _react2.default.createElement(
+	      'tr',
+	      { key: 'tr-' + index, className: 'table-tr' },
+	      renderTds(data, entry, columns, index)
+	    );
+	  });
+	};
+
+	function Table(props) {
+	  var children = props.children;
+	  var data = props.data;
+	  var className = props.className;
+
+	  var columns = children;
+
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'table-container ' + (className || '') },
+	    _react2.default.createElement(
+	      'table',
+	      { className: 'table' },
+	      _react2.default.createElement(
+	        'thead',
+	        { className: 'table-thead' },
+	        _react2.default.createElement(
+	          'tr',
+	          { className: 'table-tr' },
+	          columns.map(function (col, index) {
+	            var _col$props2 = col.props;
+	            var name = _col$props2.name;
+	            var dataKey = _col$props2.dataKey;
+	            var className = _col$props2.className;
+
+	            return _react2.default.createElement(
+	              'th',
+	              {
+	                key: 'th-' + index,
+	                style: getStyle(col.props),
+	                className: 'table-th col-' + index + ' col-' + dataKey + ' ' + (className || '')
+	              },
+	              name
+	            );
+	          })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'tbody',
+	        { className: 'tbody' },
+	        renderRows(data, columns)
+	      )
+	    )
+	  );
+	}
+
+	exports.default = Table;
+
+/***/ },
 /* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27416,729 +27573,40 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */
-/***/ function(module, exports) {
-
-	(function(self) {
-	  'use strict';
-
-	  if (self.fetch) {
-	    return
-	  }
-
-	  var support = {
-	    searchParams: 'URLSearchParams' in self,
-	    iterable: 'Symbol' in self && 'iterator' in Symbol,
-	    blob: 'FileReader' in self && 'Blob' in self && (function() {
-	      try {
-	        new Blob()
-	        return true
-	      } catch(e) {
-	        return false
-	      }
-	    })(),
-	    formData: 'FormData' in self,
-	    arrayBuffer: 'ArrayBuffer' in self
-	  }
-
-	  function normalizeName(name) {
-	    if (typeof name !== 'string') {
-	      name = String(name)
-	    }
-	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-	      throw new TypeError('Invalid character in header field name')
-	    }
-	    return name.toLowerCase()
-	  }
-
-	  function normalizeValue(value) {
-	    if (typeof value !== 'string') {
-	      value = String(value)
-	    }
-	    return value
-	  }
-
-	  // Build a destructive iterator for the value list
-	  function iteratorFor(items) {
-	    var iterator = {
-	      next: function() {
-	        var value = items.shift()
-	        return {done: value === undefined, value: value}
-	      }
-	    }
-
-	    if (support.iterable) {
-	      iterator[Symbol.iterator] = function() {
-	        return iterator
-	      }
-	    }
-
-	    return iterator
-	  }
-
-	  function Headers(headers) {
-	    this.map = {}
-
-	    if (headers instanceof Headers) {
-	      headers.forEach(function(value, name) {
-	        this.append(name, value)
-	      }, this)
-
-	    } else if (headers) {
-	      Object.getOwnPropertyNames(headers).forEach(function(name) {
-	        this.append(name, headers[name])
-	      }, this)
-	    }
-	  }
-
-	  Headers.prototype.append = function(name, value) {
-	    name = normalizeName(name)
-	    value = normalizeValue(value)
-	    var list = this.map[name]
-	    if (!list) {
-	      list = []
-	      this.map[name] = list
-	    }
-	    list.push(value)
-	  }
-
-	  Headers.prototype['delete'] = function(name) {
-	    delete this.map[normalizeName(name)]
-	  }
-
-	  Headers.prototype.get = function(name) {
-	    var values = this.map[normalizeName(name)]
-	    return values ? values[0] : null
-	  }
-
-	  Headers.prototype.getAll = function(name) {
-	    return this.map[normalizeName(name)] || []
-	  }
-
-	  Headers.prototype.has = function(name) {
-	    return this.map.hasOwnProperty(normalizeName(name))
-	  }
-
-	  Headers.prototype.set = function(name, value) {
-	    this.map[normalizeName(name)] = [normalizeValue(value)]
-	  }
-
-	  Headers.prototype.forEach = function(callback, thisArg) {
-	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
-	      this.map[name].forEach(function(value) {
-	        callback.call(thisArg, value, name, this)
-	      }, this)
-	    }, this)
-	  }
-
-	  Headers.prototype.keys = function() {
-	    var items = []
-	    this.forEach(function(value, name) { items.push(name) })
-	    return iteratorFor(items)
-	  }
-
-	  Headers.prototype.values = function() {
-	    var items = []
-	    this.forEach(function(value) { items.push(value) })
-	    return iteratorFor(items)
-	  }
-
-	  Headers.prototype.entries = function() {
-	    var items = []
-	    this.forEach(function(value, name) { items.push([name, value]) })
-	    return iteratorFor(items)
-	  }
-
-	  if (support.iterable) {
-	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
-	  }
-
-	  function consumed(body) {
-	    if (body.bodyUsed) {
-	      return Promise.reject(new TypeError('Already read'))
-	    }
-	    body.bodyUsed = true
-	  }
-
-	  function fileReaderReady(reader) {
-	    return new Promise(function(resolve, reject) {
-	      reader.onload = function() {
-	        resolve(reader.result)
-	      }
-	      reader.onerror = function() {
-	        reject(reader.error)
-	      }
-	    })
-	  }
-
-	  function readBlobAsArrayBuffer(blob) {
-	    var reader = new FileReader()
-	    reader.readAsArrayBuffer(blob)
-	    return fileReaderReady(reader)
-	  }
-
-	  function readBlobAsText(blob) {
-	    var reader = new FileReader()
-	    reader.readAsText(blob)
-	    return fileReaderReady(reader)
-	  }
-
-	  function Body() {
-	    this.bodyUsed = false
-
-	    this._initBody = function(body) {
-	      this._bodyInit = body
-	      if (typeof body === 'string') {
-	        this._bodyText = body
-	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-	        this._bodyBlob = body
-	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-	        this._bodyFormData = body
-	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-	        this._bodyText = body.toString()
-	      } else if (!body) {
-	        this._bodyText = ''
-	      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
-	        // Only support ArrayBuffers for POST method.
-	        // Receiving ArrayBuffers happens via Blobs, instead.
-	      } else {
-	        throw new Error('unsupported BodyInit type')
-	      }
-
-	      if (!this.headers.get('content-type')) {
-	        if (typeof body === 'string') {
-	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
-	        } else if (this._bodyBlob && this._bodyBlob.type) {
-	          this.headers.set('content-type', this._bodyBlob.type)
-	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
-	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
-	        }
-	      }
-	    }
-
-	    if (support.blob) {
-	      this.blob = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-
-	        if (this._bodyBlob) {
-	          return Promise.resolve(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as blob')
-	        } else {
-	          return Promise.resolve(new Blob([this._bodyText]))
-	        }
-	      }
-
-	      this.arrayBuffer = function() {
-	        return this.blob().then(readBlobAsArrayBuffer)
-	      }
-
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        if (rejected) {
-	          return rejected
-	        }
-
-	        if (this._bodyBlob) {
-	          return readBlobAsText(this._bodyBlob)
-	        } else if (this._bodyFormData) {
-	          throw new Error('could not read FormData body as text')
-	        } else {
-	          return Promise.resolve(this._bodyText)
-	        }
-	      }
-	    } else {
-	      this.text = function() {
-	        var rejected = consumed(this)
-	        return rejected ? rejected : Promise.resolve(this._bodyText)
-	      }
-	    }
-
-	    if (support.formData) {
-	      this.formData = function() {
-	        return this.text().then(decode)
-	      }
-	    }
-
-	    this.json = function() {
-	      return this.text().then(JSON.parse)
-	    }
-
-	    return this
-	  }
-
-	  // HTTP methods whose capitalization should be normalized
-	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-
-	  function normalizeMethod(method) {
-	    var upcased = method.toUpperCase()
-	    return (methods.indexOf(upcased) > -1) ? upcased : method
-	  }
-
-	  function Request(input, options) {
-	    options = options || {}
-	    var body = options.body
-	    if (Request.prototype.isPrototypeOf(input)) {
-	      if (input.bodyUsed) {
-	        throw new TypeError('Already read')
-	      }
-	      this.url = input.url
-	      this.credentials = input.credentials
-	      if (!options.headers) {
-	        this.headers = new Headers(input.headers)
-	      }
-	      this.method = input.method
-	      this.mode = input.mode
-	      if (!body) {
-	        body = input._bodyInit
-	        input.bodyUsed = true
-	      }
-	    } else {
-	      this.url = input
-	    }
-
-	    this.credentials = options.credentials || this.credentials || 'omit'
-	    if (options.headers || !this.headers) {
-	      this.headers = new Headers(options.headers)
-	    }
-	    this.method = normalizeMethod(options.method || this.method || 'GET')
-	    this.mode = options.mode || this.mode || null
-	    this.referrer = null
-
-	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
-	      throw new TypeError('Body not allowed for GET or HEAD requests')
-	    }
-	    this._initBody(body)
-	  }
-
-	  Request.prototype.clone = function() {
-	    return new Request(this)
-	  }
-
-	  function decode(body) {
-	    var form = new FormData()
-	    body.trim().split('&').forEach(function(bytes) {
-	      if (bytes) {
-	        var split = bytes.split('=')
-	        var name = split.shift().replace(/\+/g, ' ')
-	        var value = split.join('=').replace(/\+/g, ' ')
-	        form.append(decodeURIComponent(name), decodeURIComponent(value))
-	      }
-	    })
-	    return form
-	  }
-
-	  function headers(xhr) {
-	    var head = new Headers()
-	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
-	    pairs.forEach(function(header) {
-	      var split = header.trim().split(':')
-	      var key = split.shift().trim()
-	      var value = split.join(':').trim()
-	      head.append(key, value)
-	    })
-	    return head
-	  }
-
-	  Body.call(Request.prototype)
-
-	  function Response(bodyInit, options) {
-	    if (!options) {
-	      options = {}
-	    }
-
-	    this.type = 'default'
-	    this.status = options.status
-	    this.ok = this.status >= 200 && this.status < 300
-	    this.statusText = options.statusText
-	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
-	    this.url = options.url || ''
-	    this._initBody(bodyInit)
-	  }
-
-	  Body.call(Response.prototype)
-
-	  Response.prototype.clone = function() {
-	    return new Response(this._bodyInit, {
-	      status: this.status,
-	      statusText: this.statusText,
-	      headers: new Headers(this.headers),
-	      url: this.url
-	    })
-	  }
-
-	  Response.error = function() {
-	    var response = new Response(null, {status: 0, statusText: ''})
-	    response.type = 'error'
-	    return response
-	  }
-
-	  var redirectStatuses = [301, 302, 303, 307, 308]
-
-	  Response.redirect = function(url, status) {
-	    if (redirectStatuses.indexOf(status) === -1) {
-	      throw new RangeError('Invalid status code')
-	    }
-
-	    return new Response(null, {status: status, headers: {location: url}})
-	  }
-
-	  self.Headers = Headers
-	  self.Request = Request
-	  self.Response = Response
-
-	  self.fetch = function(input, init) {
-	    return new Promise(function(resolve, reject) {
-	      var request
-	      if (Request.prototype.isPrototypeOf(input) && !init) {
-	        request = input
-	      } else {
-	        request = new Request(input, init)
-	      }
-
-	      var xhr = new XMLHttpRequest()
-
-	      function responseURL() {
-	        if ('responseURL' in xhr) {
-	          return xhr.responseURL
-	        }
-
-	        // Avoid security warnings on getResponseHeader when not allowed by CORS
-	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-	          return xhr.getResponseHeader('X-Request-URL')
-	        }
-
-	        return
-	      }
-
-	      xhr.onload = function() {
-	        var options = {
-	          status: xhr.status,
-	          statusText: xhr.statusText,
-	          headers: headers(xhr),
-	          url: responseURL()
-	        }
-	        var body = 'response' in xhr ? xhr.response : xhr.responseText
-	        resolve(new Response(body, options))
-	      }
-
-	      xhr.onerror = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-
-	      xhr.ontimeout = function() {
-	        reject(new TypeError('Network request failed'))
-	      }
-
-	      xhr.open(request.method, request.url, true)
-
-	      if (request.credentials === 'include') {
-	        xhr.withCredentials = true
-	      }
-
-	      if ('responseType' in xhr && support.blob) {
-	        xhr.responseType = 'blob'
-	      }
-
-	      request.headers.forEach(function(value, name) {
-	        xhr.setRequestHeader(name, value)
-	      })
-
-	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-	    })
-	  }
-	  self.fetch.polyfill = true
-	})(typeof self !== 'undefined' ? self : this);
-
-
-/***/ },
-/* 251 */,
-/* 252 */,
-/* 253 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(35);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _index = __webpack_require__(254);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	_reactDom2.default.render(_react2.default.createElement(_index2.default, { url: '/api/listCamera' }), document.getElementById('treeMenu'));
-
-/***/ },
-/* 254 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(250);
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(182);
-
-	var _BaseComponent3 = __webpack_require__(174);
-
-	var _BaseComponent4 = _interopRequireDefault(_BaseComponent3);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var defaultProps = {
+	  align: 'left'
+	};
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	__webpack_require__(255);
-	__webpack_require__(257);
-
-	var TreeFolderItem = function (_React$Component) {
-	    _inherits(TreeFolderItem, _React$Component);
-
-	    function TreeFolderItem() {
-	        _classCallCheck(this, TreeFolderItem);
-
-	        return _possibleConstructorReturn(this, (TreeFolderItem.__proto__ || Object.getPrototypeOf(TreeFolderItem)).call(this));
-	    }
-
-	    _createClass(TreeFolderItem, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'tree-item' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'tree-item-name' },
-	                    _react2.default.createElement('i', { className: 'fa fa-video-camera' }),
-	                    _react2.default.createElement(
-	                        'span',
-	                        null,
-	                        ' ',
-	                        this.props.month,
-	                        ' '
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return TreeFolderItem;
-	}(_react2.default.Component);
-
-	var TreeFolder = function (_BaseComponent) {
-	    _inherits(TreeFolder, _BaseComponent);
-
-	    function TreeFolder(props) {
-	        _classCallCheck(this, TreeFolder);
-
-	        var _this2 = _possibleConstructorReturn(this, (TreeFolder.__proto__ || Object.getPrototypeOf(TreeFolder)).call(this, props));
-
-	        _this2.state = {
-	            months: []
-	        };
-	        _this2._bind('handleClickFolderHeader');
-
-	        return _this2;
-	    }
-
-	    _createClass(TreeFolder, [{
-	        key: 'handleClickFolderHeader',
-	        value: function handleClickFolderHeader(e) {
-	            var _this3 = this;
-
-	            var iconPlusClass = "fa-plus-square-o";
-	            var iconMinusClass = "fa-minus-sqare-o";
-
-	            var that = e.currentTarget;
-
-	            var parentDOM = that.parentNode;
-	            var loaderDOM = parentDOM.getElementsByClassName("tree-loader")[0];
-	            var iElement = that.getElementsByTagName("i")[0];
-	            var iClassList = iElement.classList;
-
-	            var year = this.props.name;
-
-	            var treeFolderContentDOM = parentDOM.getElementsByClassName("tree-folder-content")[0]; //default block is none
-	            var displayAttr = treeFolderContentDOM.style.display;
-
-	            if (!displayAttr || displayAttr === 'none') {
-	                loaderDOM.style.display = "block";
-	                var url = '/api/years/';
-	                fetch(url).then(function (res) {
-	                    return res.json();
-	                }).then(function (body) {
-	                    _this3.setState({ months: body });
-	                    loaderDOM.style.display = "none";
-	                    treeFolderContentDOM.style.display = "block";
-	                }).catch(function (ex) {
-	                    loaderDOM.style.display = "none";
-	                    console.log('parsing failed.', ex);
-	                });
-	            } else {
-	                treeFolderContentDOM.style.display = "none";
-	                iClassList.add(iconPlusClass);
-	                iClassList.remove(iconMinusClass);
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            var TreeFolderItemsNodes = this.state.months.map(function (item) {
-	                return _react2.default.createElement(TreeFolderItem, { key: item.id, month: item.month });
-	            });
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'tree-folder' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'tree-folder-header', onClick: this.handleClickFolderHeader },
-	                    _react2.default.createElement('i', { className: 'fa fa-plus-square-o' }),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'tree-folder-name' },
-	                        ' ',
-	                        this.props.name,
-	                        '年'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'tree-folder-content' },
-	                    TreeFolderItemsNodes
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'tree-loader' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'tree-loading' },
-	                        _react2.default.createElement('i', { className: 'fa fa-refresh fa-spin' })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return TreeFolder;
-	}(_BaseComponent4.default);
-
-	var TreeMenu = function (_BaseComponent2) {
-	    _inherits(TreeMenu, _BaseComponent2);
-
-	    //constructor function
-	    function TreeMenu(props) {
-	        _classCallCheck(this, TreeMenu);
-
-	        //init state
-	        var _this4 = _possibleConstructorReturn(this, (TreeMenu.__proto__ || Object.getPrototypeOf(TreeMenu)).call(this, props));
-
-	        _this4.state = {
-	            data: []
-	        };
-	        return _this4;
-	    }
-
-	    _createClass(TreeMenu, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this5 = this;
-
-	            var url = this.props.url;
-	            fetch(url).then(function (res) {
-	                return res.json();
-	            }) //json format
-	            .then(function (body) {
-	                _this5.setState({ data: body });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var treeFolderNodes = this.state.data.map(function (item) {
-	                return _react2.default.createElement(TreeFolder, { key: item.id, name: item.year });
-	            });
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'tree' },
-	                treeFolderNodes
-	            );
-	        }
-	    }]);
-
-	    return TreeMenu;
-	}(_BaseComponent4.default);
-
-	exports.default = TreeMenu;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(256);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(178)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./../../../node_modules/sass-loader/index.js!./flex.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./../../../node_modules/sass-loader/index.js!./flex.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
+	function Column() {
+	  return null;
 	}
+	Column.defaultProps = defaultProps;
+
+	exports.default = Column;
 
 /***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(177)();
-	exports.push([module.id, ".text-center {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  text-align: center; }\n\n.row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row; }\n\n.column {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n\n.s1 {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1; }\n\n.s2 {\n  -webkit-box-flex: 2;\n      -ms-flex: 2;\n          flex: 2; }\n\n.s3 {\n  -webkit-box-flex: 3;\n      -ms-flex: 3;\n          flex: 3; }\n\n.s4 {\n  -webkit-box-flex: 4;\n      -ms-flex: 4;\n          flex: 4; }\n\n.s5 {\n  -webkit-box-flex: 5;\n      -ms-flex: 5;\n          flex: 5; }\n\n.s6 {\n  -webkit-box-flex: 6;\n      -ms-flex: 6;\n          flex: 6; }\n\n.s7 {\n  -webkit-box-flex: 7;\n      -ms-flex: 7;\n          flex: 7; }\n\n.s8 {\n  -webkit-box-flex: 8;\n      -ms-flex: 8;\n          flex: 8; }\n\n.s9 {\n  -webkit-box-flex: 9;\n      -ms-flex: 9;\n          flex: 9; }\n\n.s10 {\n  -webkit-box-flex: 10;\n      -ms-flex: 10;\n          flex: 10; }\n\n.s11 {\n  -webkit-box-flex: 11;\n      -ms-flex: 11;\n          flex: 11; }\n\n.s12 {\n  -webkit-box-flex: 12;\n      -ms-flex: 12;\n          flex: 12; }\n\n.center {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  text-align: center; }\n", ""]);
-
-/***/ },
-/* 257 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(258);
+	var content = __webpack_require__(247);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(178)(content, {});
@@ -28158,11 +27626,11 @@
 	}
 
 /***/ },
-/* 258 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(177)();
-	exports.push([module.id, ".content {\n  width: 800px;\n  margin: 40px auto; }\n\n.tree {\n  position: relative;\n  padding-left: 20px; }\n  .tree:before {\n    content: \"\";\n    position: absolute;\n    left: 0px;\n    top: 0px;\n    border: 1px dotted #67b2dd;\n    bottom: 12px; }\n  .tree .tree-folder {\n    position: relative; }\n    .tree .tree-folder:before {\n      content: \"\";\n      position: absolute;\n      width: 20px;\n      left: -19px;\n      top: 14px;\n      border: 1px dotted #67b2dd; }\n    .tree .tree-folder .tree-folder-header {\n      position: relative;\n      padding: 5px;\n      height: 20px;\n      line-height: 20px;\n      cursor: pointer; }\n      .tree .tree-folder .tree-folder-header .tree-folder-name {\n        display: inline-block; }\n  .tree .tree-folder-content {\n    position: relative;\n    padding: 5px;\n    margin-left: 28px;\n    display: none; }\n    .tree .tree-folder-content:before {\n      content: \"\";\n      position: absolute;\n      left: -18px;\n      top: -9px;\n      bottom: 14px;\n      border: 1px dotted #67b2dd; }\n  .tree .tree-item {\n    position: relative; }\n    .tree .tree-item:before {\n      content: \"\";\n      position: absolute;\n      width: 18px;\n      border: 1px dotted #67b2dd;\n      left: -20px;\n      top: 8px; }\n    .tree .tree-item a {\n      text-decoration: none;\n      color: #67b2dd; }\n  .tree .tree-loader {\n    margin-left: 28px;\n    display: none; }\n", ""]);
+	exports.push([module.id, "", ""]);
 
 /***/ }
 /******/ ]);

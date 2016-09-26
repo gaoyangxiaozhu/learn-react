@@ -13,6 +13,9 @@ module.exports = {
     ],
     "tabpage":[
         './scripts/tabpage'
+    ],
+    "table":[
+        './scripts/table'
     ]
   },
   output: {
